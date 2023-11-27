@@ -1,36 +1,5 @@
-class heikin_ashi (adx_indicator):
 
-  def __init__(self, refine_list = None):
-
-      self.refine_list = refine_list
-
-  def run_heikin_ashi(self, refine_list ):
-
-      ha_status_list = self.get_heikin_ashi(self, bar_list )
-
-      return  ha_status_list
-
-  def heikin_ashi_status(self, ha_open , ha_close ):
-
-      candles =  np.full_like( ha_close, '', dtype='U10')
-
-      for i in range(1 , len(ha_close) ):
-
-            # green_condition =  ha_close[i] > ha_open[i]
-            # red_condition   =  ha_close[i] < ha_open[i]
-            if ha_close[i] > ha_open[i] :
-              candles[i]  = 'Green'
-
-            elif ha_close[i] < ha_open[i] :
-              candles[i]  = 'Red'
-
-            else:
-              candles[i] = 'Neutral'
-
-      return  candles
-
-
-  def heikin_ashi_candles (self, open, high, low, close ):
+def heikin_ashi_candles ( open, high, low, close ):
 
       ha_close =  np.empty(len(close), dtype=np.float32 )
 
@@ -51,3 +20,27 @@ class heikin_ashi (adx_indicator):
             ha_low[i]   = min( low[i], ha_open[i], ha_close[i]  )
 
       return   ha_open, ha_close, ha_high, ha_low
+
+
+
+  
+def heikin_ashi_status( ha_open , ha_close ):
+
+      candles =  np.full_like( ha_close, '', dtype='U10')
+
+      for i in range(1 , len(ha_close) ):
+
+            # green_condition =  ha_close[i] > ha_open[i]
+            # red_condition   =  ha_close[i] < ha_open[i]
+            if ha_close[i] > ha_open[i] :
+              candles[i]  = 'Green'
+
+            elif ha_close[i] < ha_open[i] :
+              candles[i]  = 'Red'
+            else:
+              candles[i] = 'Neutral'
+
+      return  candles
+
+
+  
